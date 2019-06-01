@@ -4,7 +4,7 @@ namespace Hiraeth\Dbal;
 
 use Hiraeth;
 use InvalidArgumentException;
-use Doctrine\Common\Persistence;
+use Doctrine\Persistence;
 use Doctrine\DBAL;
 
 /**
@@ -69,7 +69,7 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
     /**
      * {@inheritdoc}
      */
-    public function getConnection($name = null)
+    public function getConnection($name = null): object
     {
         if ($name === null) {
             $name = $this->defaultConnection;
@@ -98,7 +98,7 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 	/**
      * {@inheritdoc}
      */
-    public function getConnectionNames()
+    public function getConnectionNames(): array
     {
         return array_keys($this->connectionCollections);
     }
@@ -107,7 +107,7 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
     /**
      * {@inheritdoc}
      */
-    public function getConnections()
+    public function getConnections(): array
     {
 		foreach ($this->connectionCollections as $name => $collection) {
 			if (!$this->connections[$name]) {
@@ -122,7 +122,7 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 	/**
      * {@inheritdoc}
      */
-    public function getDefaultConnectionName()
+    public function getDefaultConnectionName(): string
     {
         return $this->defaultConnection;
     }
