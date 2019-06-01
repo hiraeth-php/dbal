@@ -1,0 +1,37 @@
+[connection]
+
+	;
+	;
+	;
+
+	driver = env(DATABASES_DEFAULT_TYPE)
+
+	;
+	;
+	;
+
+	user = env(DATABASES_DEFAULT_USER)
+
+	;
+	;
+	;
+
+	; pass = env(DATABASES_DEFAULT_PASS)
+
+	;
+	;
+	;
+
+	; host = env(DATABASES_DEFAULT_HOST)
+
+	;
+	;
+	;
+
+	; port = env(DATABASES_DEFAULT_PORT)
+
+	;
+	;
+	;
+
+	dbname = env(DATABASES_DEFAULT_NAME)
