@@ -4,7 +4,7 @@ namespace Hiraeth\Dbal;
 
 use Hiraeth;
 use InvalidArgumentException;
-use Doctrine\Persistence;
+use Doctrine\Common\Persistence;
 use Doctrine\DBAL;
 
 /**

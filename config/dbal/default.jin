@@ -16,7 +16,7 @@
 	;
 	;
 
-	; pass = env(DATABASES_DEFAULT_PASS)
+	; password = env(DATABASES_DEFAULT_PASS)
 
 	;
 	;
