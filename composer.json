@@ -10,8 +10,8 @@
         }
     ],
     "require": {
-        "doctrine/dbal": "dev-master as 3.0",
-        "doctrine/persistence": "dev-master as 2.0"
+        "doctrine/dbal": "^2.9",
+        "doctrine/persistence": "^1.2"
     },
     "autoload": {
         "classmap": ["src/"]
