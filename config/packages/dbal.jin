@@ -18,7 +18,7 @@
 	;
 
 	delegates = [
-
+		"Hiraeth\Dbal\ConnectionDelegate"
 	]
 
 	;
@@ -37,4 +37,18 @@
 
 	connections = {
 		"default": "dbal/default"
+	}
+
+	types = {
+		"uuid": "Ramsey\Uuid\Doctrine\UuidType"
+	}
+
+[console]
+
+	commands = [
+
+	]
+
+	helpers = {
+		"db": "Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper"
 	}
