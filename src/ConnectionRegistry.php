@@ -118,7 +118,7 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 	public function getConnections(): array
 	{
 		foreach ($this->connectionCollections as $name => $collection) {
-			if (!$this->connections[$name]) {
+			if (!isset($this->connections[$name])) {
 				$this->connections[$name] = $this->getConnection($name);
 			}
 		}
