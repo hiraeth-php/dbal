@@ -35,10 +35,6 @@
 
 [dbal]
 
-	connections = {
-		"default": "dbal/default"
-	}
-
 	types = {
 		"uuid": "Ramsey\Uuid\Doctrine\UuidType"
 	}
