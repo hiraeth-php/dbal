@@ -52,15 +52,17 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 		$this->name              = 'default';
 		$this->defaultConnection = 'default';
 
-		foreach ($app->getConfig('*', 'dbal.connections', []) as $config) {
-			foreach ($config as $name => $collection) {
+		foreach ($app->getConfig('*', 'connection', []) as $path => $config) {
+			if (isset($config['driver'])) {
+				$name = basename($path);
+
 				if (isset($this->connectionCollections[$name])) {
 					throw new RuntimeException(sprintf(
 						'Cannot add connection "%s", name already used', $name
 					));
 				}
 
-				$this->connectionCollections[$name] = $collection;
+				$this->connectionCollections[$name] = $path;
 			}
 		}
 
