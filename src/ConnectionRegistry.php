@@ -54,7 +54,7 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 		$this->defaultConnection = 'default';
 
 		foreach ($app->getConfig('*', 'connection', []) as $path => $config) {
-			if (isset($config['driver'])) {
+			if (!empty($config['driver'])) {
 				$name = basename($path);
 
 				if (isset($this->connectionCollections[$name])) {
