@@ -22,6 +22,8 @@
     "extra": {
         "opus": {
             "hiraeth/app": {
+		"phinx.php": "",
+		"database": "",
                 "config": ""
             }
         }
