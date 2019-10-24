@@ -39,6 +39,13 @@
 		"uuid": "Ramsey\Uuid\Doctrine\UuidType"
 	}
 
+[shell]
+
+ 	commands = [
+		"Hiraeth\Dbal\QueryCommand"
+	]
+
+
 [console]
 
 	commands = [
