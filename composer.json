@@ -10,9 +10,10 @@
         }
     ],
     "require": {
-        "doctrine/dbal": "^2.9",
-        "doctrine/persistence": "^1.2",
-        "ramsey/uuid-doctrine": "^1.5"
+        "doctrine/dbal": "^2.8",
+        "doctrine/persistence": "^1.1",
+        "ramsey/uuid-doctrine": "^1.5",
+        "robmorgan/phinx": "^0.11.0"
     },
     "autoload": {
         "classmap": ["src/"]
