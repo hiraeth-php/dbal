@@ -10,15 +10,19 @@ $parser  = new Dotink\Jin\Parser();
 $env     = $parser->parse(file_get_contents(__DIR__ . '/.env'));
 $adapter = function($driver) {
 	$translations = [
-		'pgsql'  => 'pgsql',
-		'mysql'  => 'mysql',
-		'sqlsrv' => 'sqlsrv',
-		'sqlite' => 'sqlite',
+		'pgsql'      => 'pgsql',
+		'mysql'      => 'mysql',
+		'sqlsrv'     => 'sqlsrv',
+		'sqlite'     => 'sqlite',
 		'pdo_pgsql'  => 'pgsql',
 		'pdo_mysql'  => 'mysql',
 		'pdo_sqlsrv' => 'sqlsrv',
 		'pdo_sqlite' => 'sqlite'
 	];
+
+	if (!$driver) {
+		return NULL;
+	}
 
 	if (!isset($translations[$driver])) {
 		throw new RuntimeException(sprintf(
@@ -47,3 +51,4 @@ return [
 		]
 	]
 ];
+
