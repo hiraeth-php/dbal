@@ -54,7 +54,7 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 		$this->defaultConnection = 'default';
 
 		foreach ($app->getConfig('*', 'connection', []) as $path => $config) {
-			if (!empty($config['driver'])) {
+			if (!empty($config)) {
 				$name = basename($path);
 
 				if (isset($this->connectionCollections[$name])) {
@@ -97,7 +97,7 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 			];
 
 			$this->connections[$name] = DBAL\DriverManager::getConnection(
-				$options,
+				empty($options['driver']) ? ['url'=>'sqlite:///:memory:'] : $options,
 				$this->app->get(DBAL\Configuration::class)
 			);
 		}
