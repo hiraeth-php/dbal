@@ -107,6 +107,23 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 
 
 	/**
+	 *
+	 */
+	public function getConnectionConfig($name = NULL)
+	{
+		if (!$name) {
+			$name = $this->defaultConnection;
+		}
+
+		if (!isset($this->connectionCollections[$name])) {
+			throw new InvalidArgumentException(sprintf('Doctrine %s Connection named "%s" does not exist.', $this->name, $name));
+		}
+
+		return $this->app->getConfig($this->connectionCollections[$name], 'connection', []);
+	}
+
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function getConnectionNames(): array

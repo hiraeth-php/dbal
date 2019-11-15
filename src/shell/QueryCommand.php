@@ -6,8 +6,9 @@ use Psy\Command\Command;
 use Psy\VarDumper\Presenter;
 use Psy\VarDumper\PresenterAware;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\StreamableInputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -55,7 +56,7 @@ class QueryCommand extends Command implements PresenterAware
 			)
 			->setHelp(
 <<<HELP
-Execute an SLQ query on a connection
+Execute an SQL query on a connection
 
 query -c <connection> <sql>
 HELP
@@ -67,7 +68,9 @@ HELP
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		if ($input->getArgument('sql')) {
+		$sql = trim(implode(' ', $input->getArgument('sql')));
+
+		if ($sql) {
 			if ($input->getOption('connection')) {
 				$connection = $this->registry->getConnection($input->getOption('connection'));
 			} else {
@@ -75,7 +78,7 @@ HELP
 			}
 
 			$output->page($this->presenter->present(
-				$connection->fetchAll(implode(' ', $input->getArgument('sql')))
+				$connection->fetchAll($sql)
 			));
 
 		} else {

@@ -1,19 +1,21 @@
 {
 	"name": "hiraeth/dbal",
 	"description": "Database abstraction via Doctrine for the Hiraeth Nano Framework",
-	"license": "MIT",
-	"authors": [
-		{
-			"name":  "Matthew J. Sahagian",
-			"email": "matthew.sahagian@gmail.com",
-			"role":  "Lead Architect / Developer"
-		}
-	],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "license": "MIT",
+    "authors": [
+        {
+            "name":  "Matthew J. Sahagian",
+            "email": "matthew.sahagian@gmail.com",
+            "role":  "Lead Architect / Developer"
+        }
+    ],
 	"require": {
 		"doctrine/dbal": "^2.8",
+        "doctrine/migrations": "^2.2",
 		"doctrine/persistence": "^1.1",
 		"ramsey/uuid-doctrine": "^1.5",
-		"robmorgan/phinx": "^0.11.0",
 		"ext-pdo_sqlite": "*"
 	},
 	"autoload": {
@@ -23,7 +25,6 @@
 	"extra": {
 		"opus": {
 			"hiraeth/app": {
-				"phinx.php": "",
 				"database": "",
 				"config": ""
 			}

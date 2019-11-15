@@ -26,27 +26,30 @@ trait MultipleConnections
 	/**
 	 *
 	 */
-	public function configure()
+	public function configure(): void
 	{
-		$this->addArgument('connection', InputArgument::OPTIONAL, 'The name of the connection to use');
+		parent::configure();
 
-		return parent::configure();
+		$this->addArgument(
+			'connection',
+			InputArgument::OPTIONAL,
+			'The name of the connection to use',
+			$this->registry->getDefaultConnectionName()
+		);
 	}
 
 
 	/**
 	 *
 	 */
-	public function execute(InputInterface $input, OutputInterface $output)
+	public function execute(InputInterface $input, OutputInterface $output): ?int
 	{
 		$connection = $input->getArgument('connection');
 
-		if ($connection) {
-			$this->getHelperSet()->set(
-				new ConnectionHelper($this->registry->getConnection($connection)),
-				'db'
-			);
-		}
+		$this->getHelperSet()->set(
+			new ConnectionHelper($this->registry->getConnection($connection)),
+			'db'
+		);
 
 		return parent::execute($input, $output);
 	}

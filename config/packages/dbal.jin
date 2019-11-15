@@ -18,7 +18,8 @@
 	;
 
 	delegates = [
-		"Hiraeth\Dbal\ConnectionDelegate"
+		"Hiraeth\Dbal\ConnectionDelegate",
+		"Hiraeth\Dbal\MigrationConfigurationHelperDelegate"
 	]
 
 	;
@@ -41,7 +42,7 @@
 
 [shell]
 
- 	commands = [
+	commands = [
 		"Hiraeth\Dbal\QueryCommand"
 	]
 
@@ -49,9 +50,18 @@
 [console]
 
 	commands = [
-
+		"Hiraeth\Dbal\DiffCommand",
+		"Hiraeth\Dbal\DumpSchemaCommand",
+		"Hiraeth\Dbal\ExecuteCommand",
+		"Hiraeth\Dbal\GenerateCommand",
+		"Hiraeth\Dbal\LatestCommand",
+		"Hiraeth\Dbal\MigrateCommand",
+		"Hiraeth\Dbal\RollupCommand",
+		"Hiraeth\Dbal\StatusCommand",
+		"Hiraeth\Dbal\VersionCommand"
 	]
 
 	helpers = {
-		"db": "Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper"
+		"db": "Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper",
+		"configuration": "Doctrine\Migrations\Tools\Console\Helper\ConfigurationHelper"
 	}

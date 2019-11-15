@@ -35,3 +35,11 @@
 	;
 
 	dbname = env(DATABASES_DEFAULT_NAME)
+
+	;
+	;
+	;
+
+	[&.migrations]
+
+		directory = dir(database/default/migrations)
