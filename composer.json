@@ -13,7 +13,7 @@
     ],
 	"require": {
 		"doctrine/dbal": "^2.8",
-        "doctrine/migrations": "^2.2",
+		"doctrine/migrations": "^2.1",
 		"doctrine/persistence": "^1.1",
 		"ramsey/uuid-doctrine": "^1.5",
 		"ext-pdo_sqlite": "*"
