@@ -29,7 +29,7 @@ trait MultipleConnections
 	public function configure(): void
 	{
 		$this->addOption(
-			'connection', 'c'
+			'connection', 'c',
 			InputOption::VALUE_REQUIRED,
 			'The name of the connection to use',
 			$this->registry->getDefaultConnectionName()
