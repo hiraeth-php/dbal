@@ -2,7 +2,7 @@
 
 namespace Hiraeth\Dbal;
 
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
@@ -28,15 +28,14 @@ trait MultipleConnections
 	 */
 	public function configure(): void
 	{
-		parent::configure();
-
 		$this->addOption(
-			'connection',
-			'c'
-			InputArgument::OPTIONAL,
+			'connection', 'c'
+			InputOption::VALUE_REQUIRED,
 			'The name of the connection to use',
 			$this->registry->getDefaultConnectionName()
 		);
+
+		parent::configure();
 	}
 
 
@@ -45,7 +44,7 @@ trait MultipleConnections
 	 */
 	public function execute(InputInterface $input, OutputInterface $output): ?int
 	{
-		$connection = $input->getArgument('connection');
+		$connection = $input->getOption('connection');
 
 		$this->getHelperSet()->set(
 			new ConnectionHelper($this->registry->getConnection($connection)),
