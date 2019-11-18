@@ -30,8 +30,9 @@ trait MultipleConnections
 	{
 		parent::configure();
 
-		$this->addArgument(
+		$this->addOption(
 			'connection',
+			'c'
 			InputArgument::OPTIONAL,
 			'The name of the connection to use',
 			$this->registry->getDefaultConnectionName()
