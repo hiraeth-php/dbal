@@ -32,7 +32,7 @@ trait MigrationConfig
 	 */
 	public function execute(InputInterface $input, OutputInterface $output): ?int
 	{
-		$connection_name = $input->getArgument('connection');
+		$connection_name = $input->getOption('connection');
 		$connection      = $this->registry->getConnection($connection_name);
 		$config          = $this->makeMigrationConfig(
 			$connection_name,
