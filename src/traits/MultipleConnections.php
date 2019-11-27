@@ -36,6 +36,9 @@ trait MultipleConnections
 		);
 
 		parent::configure();
+
+		$this->setName(static::$defaultName);
+		$this->setAliases([]);
 	}
 
 
