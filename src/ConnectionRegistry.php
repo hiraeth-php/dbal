@@ -45,6 +45,12 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 
 	/**
 	 *
+	 */
+	protected $types = array();
+
+
+	/**
+	 *
 	 *
 	 */
 	public function __construct(Hiraeth\Application $app)
@@ -67,7 +73,7 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 			}
 		}
 
-		foreach ($app->getConfig('*', 'dbal.types', []) as $config) {
+		foreach ($this->app->getConfig('*', 'dbal.types', []) as $path => $config) {
 			foreach ($config as $name => $class) {
 				DBAL\Types\Type::addType($name, $class);
 			}

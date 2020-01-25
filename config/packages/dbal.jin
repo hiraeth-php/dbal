@@ -37,7 +37,8 @@
 [dbal]
 
 	types = {
-		"uuid": "Ramsey\Uuid\Doctrine\UuidType"
+		"uuid": "Ramsey\Uuid\Doctrine\UuidType",
+		"file": "Hiraeth\Dbal\FileType"
 	}
 
 [shell]
