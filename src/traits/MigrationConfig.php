@@ -40,6 +40,7 @@ trait MigrationConfig
 			$this->registry->getConnectionConfig($connection_name)
 		);
 
+		$this->setMigrationConfiguration($config);
 		$this->setDependencyFactory(new DependencyFactory($config));
 		$this->getHelperSet()->set(new ConfigurationHelper($connection, $config), 'configuration');
 
