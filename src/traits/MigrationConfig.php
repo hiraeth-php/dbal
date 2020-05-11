@@ -56,10 +56,7 @@ trait MigrationConfig
 		$options = [
 			'table'         => $data['migrations']['table'] ?? 'migrations',
 			'directory'     => $data['migrations']['directory'] ?? '',
-			'namespace'     => $data['migrations']['namespace'] ?? sprintf(
-				'Migrations\%s',
-				ucwords($name)
-			)
+			'namespace'     => $data['migrations']['namespace'] ?? 'Migrations'
 		];
 
 		$config->setName(sprintf('Migrations for "%s" Connection', $name));
