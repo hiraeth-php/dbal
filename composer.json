@@ -14,7 +14,7 @@
     "require": {
         "ext-pdo_sqlite": "*",
         "doctrine/dbal": "^2.13",
-        "doctrine/migrations": "^3.0",
+        "doctrine/migrations": "^2.3",
         "ramsey/uuid-doctrine": "^1.5"
     },
     "require-dev": {
