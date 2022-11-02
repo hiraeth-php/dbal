@@ -13,6 +13,12 @@ use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
 trait MultipleConnections
 {
 	/**
+	 * @var ConnectionRegistry
+	 */
+	protected $registry;
+
+
+	/**
 	 *
 	 */
 	public function __construct(ConnectionRegistry $registry)

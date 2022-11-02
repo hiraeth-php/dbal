@@ -27,6 +27,7 @@ trait MigrationConfig
 		$this->mcConfigure();
 	}
 
+
 	/**
 	 *
 	 */
@@ -49,9 +50,10 @@ trait MigrationConfig
 
 
 	/**
-	 *
+	 * @param string $name
+	 * @param array<string, mixed> $data
 	 */
-	protected function makeMigrationConfig($name, Connection $connection, array $data): Configuration
+	protected function makeMigrationConfig(string $name, Connection $connection, array $data): Configuration
 	{
 		$config  = new Configuration($connection);
 		$options = [

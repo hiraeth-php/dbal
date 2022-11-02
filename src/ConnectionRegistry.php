@@ -3,10 +3,11 @@
 namespace Hiraeth\Dbal;
 
 use Hiraeth;
+use Doctrine\DBAL;
+use Doctrine\Persistence;
+
 use RuntimeException;
 use InvalidArgumentException;
-use Doctrine\Persistence;
-use Doctrine\DBAL;
 
 /**
  *
@@ -14,39 +15,27 @@ use Doctrine\DBAL;
 class ConnectionRegistry implements Persistence\ConnectionRegistry
 {
 	/**
-	 *
+	 * @var Hiraeth\Application
 	 */
-	protected $app = NULL;
+	protected $app;
 
 
 	/**
-	 *
+	 * @var string
 	 */
-	protected $defaultConnection = NULL;
+	protected $defaultConnection;
 
 
 	/**
-	 *
+	 * @var array<DBAL\Connection>
 	 */
 	protected $connections = array();
 
 
 	/**
-	 *
+	 * @var array<string, string>
 	 */
-	protected $connectionCollections = array();
-
-
-	/**
-	 *
-	 */
-	protected $name = NULL;
-
-
-	/**
-	 *
-	 */
-	protected $types = array();
+	protected $connectionConfigs = array();
 
 
 	/**
@@ -56,20 +45,19 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 	public function __construct(Hiraeth\Application $app)
 	{
 		$this->app               = $app;
-		$this->name              = 'default';
 		$this->defaultConnection = 'default';
 
 		foreach ($app->getConfig('*', 'connection', []) as $path => $config) {
 			if (!empty($config)) {
 				$name = basename($path);
 
-				if (isset($this->connectionCollections[$name])) {
+				if (isset($this->connectionConfigs[$name])) {
 					throw new RuntimeException(sprintf(
 						'Cannot add connection "%s", name already used', $name
 					));
 				}
 
-				$this->connectionCollections[$name] = $path;
+				$this->connectionConfigs[$name] = $path;
 			}
 		}
 
@@ -85,19 +73,24 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @return DBAL\Connection
 	 */
-	public function getConnection($name = null): object
+	public function getConnection($name = null): DBAL\Connection
 	{
 		if ($name === null) {
 			$name = $this->defaultConnection;
 		}
 
-		if (!isset($this->connectionCollections[$name])) {
-			throw new InvalidArgumentException(sprintf('Doctrine %s Connection named "%s" does not exist.', $this->name, $name));
+		if (!isset($this->connectionConfigs[$name])) {
+			throw new InvalidArgumentException(sprintf(
+				'Doctrine connection named "%s" does not exist.',
+				$name
+			));
 		}
 
 		if (!isset($this->connections[$name])) {
-			$collection = $this->connectionCollections[$name];
+			$collection = $this->connectionConfigs[$name];
 			$options    = $this->app->getConfig($collection, 'connection', []) + [
 				'host' => '127.0.0.1'
 			];
@@ -113,7 +106,8 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 
 
 	/**
-	 *
+	 * @param string $name
+	 * @return array<string, mixed>
 	 */
 	public function getConnectionConfig($name = NULL)
 	{
@@ -121,11 +115,14 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 			$name = $this->defaultConnection;
 		}
 
-		if (!isset($this->connectionCollections[$name])) {
-			throw new InvalidArgumentException(sprintf('Doctrine %s Connection named "%s" does not exist.', $this->name, $name));
+		if (!isset($this->connectionConfigs[$name])) {
+			throw new InvalidArgumentException(sprintf(
+				'Doctrine connection configuration named "%s" does not exist.',
+				$name
+			));
 		}
 
-		return $this->app->getConfig($this->connectionCollections[$name], 'connection', []);
+		return $this->app->getConfig($this->connectionConfigs[$name], 'connection', []);
 	}
 
 
@@ -134,7 +131,14 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 	 */
 	public function getConnectionNames(): array
 	{
-		return array_keys($this->connectionCollections);
+		return array_combine(
+			array_keys($this->connectionConfigs),
+			array_map(
+				function($collection) {
+					return $this->app->getConfig($collection, 'connection.name', 'Unknown  Name');
+				},
+				$this->connectionConfigs
+			));
 	}
 
 
@@ -143,7 +147,7 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 	 */
 	public function getConnections(): array
 	{
-		foreach ($this->connectionCollections as $name => $collection) {
+		foreach ($this->connectionConfigs as $name => $collection) {
 			if (!isset($this->connections[$name])) {
 				$this->connections[$name] = $this->getConnection($name);
 			}
@@ -159,16 +163,5 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 	public function getDefaultConnectionName(): string
 	{
 		return $this->defaultConnection;
-	}
-
-
-	/**
-	 * Gets the name of the registry.
-	 *
-	 * @return string
-	 */
-	public function getName()
-	{
-		return $this->name;
 	}
 }

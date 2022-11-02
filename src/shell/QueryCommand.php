@@ -3,12 +3,12 @@
 namespace Hiraeth\Dbal;
 
 use Psy\Command\Command;
+use Psy\Output\ShellOutput;
 use Psy\VarDumper\Presenter;
 use Psy\VarDumper\PresenterAware;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\StreamableInputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -16,6 +16,24 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class QueryCommand extends Command implements PresenterAware
 {
+	/**
+	 * @var string
+	 */
+	protected $connection;
+
+
+	/**
+	 * @var Presenter
+	 */
+	protected $presenter;
+
+
+	/**
+	 * @var ConnectionRegistry
+	 */
+	protected $registry;
+
+
 	/**
 	 *
 	 */
@@ -29,9 +47,9 @@ class QueryCommand extends Command implements PresenterAware
 
 
 	/**
-	 * PresenterAware interface.
+	 * {@inheritDoc}
 	 *
-	 * @param Presenter $presenter
+	 * @return void
 	 */
 	public function setPresenter(Presenter $presenter)
 	{
@@ -41,6 +59,8 @@ class QueryCommand extends Command implements PresenterAware
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @return void
 	 */
 	protected function configure()
 	{
@@ -65,6 +85,8 @@ HELP
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @param ShellOutput $output
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
@@ -77,9 +99,13 @@ HELP
 				$connection = $this->registry->getConnection($this->connection);
 			}
 
-			$output->page($this->presenter->present(
-				$connection->fetchAll($sql)
-			));
+			$result = $connection->fetchAll($sql);
+
+			foreach (array_keys($result) as $i) {
+				ksort($result[$i]);
+			}
+
+			$output->page($this->presenter->present($result));
 
 		} else {
 			if ($input->getOption('connection')) {
@@ -88,5 +114,7 @@ HELP
 				$output->page($this->presenter->present($this->connection));
 			}
 		}
+
+		return 0;
 	}
 }
