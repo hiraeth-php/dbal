@@ -17,8 +17,7 @@ trait MigrationConfig
 	use MultipleConnections;
 
 	/**
-	 * @param string $name
-	 * @param array<string, mixed> $data
+	 * {@inheritdoc}
 	 */
 	protected function getMigrationConfiguration(InputInterface $input, OutputInterface $output): Configuration
 	{
@@ -30,8 +29,8 @@ trait MigrationConfig
 			$this->registry->getConnectionConfig($name)['migrations'] ?? array()
 		) + [
 			'table'     => 'migrations',
+			'namespace' => 'Migrations',
 			'directory' => sprintf('database/%s/migrations', $name),
-			'namespace' => 'Migrations'
 		];
 
 		$connection->getConfiguration()->setSchemaAssetsFilter(NULL);
