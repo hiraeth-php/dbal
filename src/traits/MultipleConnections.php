@@ -46,20 +46,4 @@ trait MultipleConnections
 		$this->setName(static::$defaultName);
 		$this->setAliases([]);
 	}
-
-
-	/**
-	 *
-	 */
-	public function execute(InputInterface $input, OutputInterface $output): ?int
-	{
-		$connection = $input->getOption('connection');
-
-		$this->getHelperSet()->set(
-			new ConnectionHelper($this->registry->getConnection($connection)),
-			'db'
-		);
-
-		return parent::execute($input, $output);
-	}
 }
