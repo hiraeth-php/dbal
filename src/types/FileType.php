@@ -14,9 +14,9 @@ class FileType extends Type
 	const FILE = 'file';
 
 	/**
-	 *
+	 * {@inheritDoc}
 	 */
-	public function convertToPHPValue($value, AbstractPlatform $platform)
+	public function convertToPHPValue($value, AbstractPlatform $platform): mixed
 	{
 		if (!$value) {
 			return NULL;
@@ -27,9 +27,9 @@ class FileType extends Type
 
 
 	/**
-	 *
+	 * {@inheritDoc}
 	 */
-	public function convertToDatabaseValue($value, AbstractPlatform $platform)
+	public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
 	{
 		if (!$value instanceof SplFileInfo) {
 			return NULL;
@@ -42,9 +42,9 @@ class FileType extends Type
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getDefaultLength(AbstractPlatform $platform)
+	public function getDefaultLength(AbstractPlatform $platform): int
 	{
-		return $platform->getVarcharDefaultLength();
+		return 255;
 	}
 
 
@@ -60,16 +60,16 @@ class FileType extends Type
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+	public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
 	{
-		return $platform->getVarcharTypeDeclarationSQL($fieldDeclaration);
+		return $platform->getStringTypeDeclarationSQL($fieldDeclaration);
 	}
 
 
 	/**
-	 *
+	 * {@inheritDoc}
 	 */
-	public function requiresSQLCommentHint(AbstractPlatform $platform)
+	public function requiresSQLCommentHint(AbstractPlatform $platform): bool
 	{
 		return TRUE;
 	}
