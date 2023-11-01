@@ -158,6 +158,15 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 
 
 	/**
+	 * {@inheritDoc}
+	 */
+	public function getDefaultConnection(): DBAL\Connection
+	{
+		return $this->getConnection($this->getDefaultConnectionName());
+	}
+
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function getDefaultConnectionName(): string

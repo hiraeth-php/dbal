@@ -19,14 +19,17 @@ class QueryCommand extends Command implements PresenterAware
 	/**
 	 * @var string
 	 */
-	protected $connection;
+	protected static $defaultName = 'query';
 
+	/**
+	 * @var string
+	 */
+	protected $connection;
 
 	/**
 	 * @var Presenter
 	 */
 	protected $presenter;
-
 
 	/**
 	 * @var ConnectionRegistry
@@ -65,7 +68,6 @@ class QueryCommand extends Command implements PresenterAware
 	protected function configure()
 	{
 		$this
-			->setName('query')
 			->setDescription('Execute an SQL query on a connection')
 			->addArgument('sql', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'The sql to execute')
 			->addOption(
@@ -99,7 +101,7 @@ HELP
 				$connection = $this->registry->getConnection($this->connection);
 			}
 
-			$result = $connection->fetchAll($sql);
+			$result = $connection->fetchAllAssociative($sql);
 
 			foreach (array_keys($result) as $i) {
 				ksort($result[$i]);

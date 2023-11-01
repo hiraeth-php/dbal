@@ -18,8 +18,7 @@
 	;
 
 	delegates = [
-		"Hiraeth\Dbal\ConnectionDelegate",
-		"Hiraeth\Dbal\MigrationConfigurationHelperDelegate"
+		"Hiraeth\Dbal\ConnectionDelegate"
 	]
 
 	;
@@ -43,26 +42,20 @@
 
 [shell]
 
-	commands = [
-		"Hiraeth\Dbal\QueryCommand"
-	]
+	commands = {
+		"query": "Hiraeth\Dbal\QueryCommand"
+	}
 
 
 [console]
 
-	commands = [
-		"Hiraeth\Dbal\DiffCommand",
-		"Hiraeth\Dbal\DumpSchemaCommand",
-		"Hiraeth\Dbal\ExecuteCommand",
-		"Hiraeth\Dbal\GenerateCommand",
-		"Hiraeth\Dbal\LatestCommand",
-		"Hiraeth\Dbal\MigrateCommand",
-		"Hiraeth\Dbal\RollupCommand",
-		"Hiraeth\Dbal\StatusCommand",
-		"Hiraeth\Dbal\VersionCommand"
-	]
-
-	helpers = {
-		"db": "Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper",
-		"configuration": "Doctrine\Migrations\Tools\Console\Helper\ConfigurationHelper"
+	commands = {
+		"migrations:status":      "Hiraeth\Dbal\StatusCommand",
+		"migrations:latest":      "Hiraeth\Dbal\LatestCommand",
+		"migrations:rollup":      "Hiraeth\Dbal\RollupCommand",
+		"migrations:version":     "Hiraeth\Dbal\VersionCommand",
+		"migrations:migrate":     "Hiraeth\Dbal\MigrateCommand",
+		"migrations:execute":     "Hiraeth\Dbal\ExecuteCommand",
+		"migrations:generate":    "Hiraeth\Dbal\GenerateCommand",
+		"migrations:dump-schema": "Hiraeth\Dbal\DumpSchemaCommand",
 	}

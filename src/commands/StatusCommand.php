@@ -5,11 +5,17 @@ namespace Hiraeth\Dbal;
 use Doctrine\Migrations\Tools\Console\Command;
 
 /**
- *
+ * Proxy command cause doctrine migrations is a huge pile of shit
  */
-class StatusCommand extends Command\StatusCommand
+class StatusCommand extends AbstractCommand
 {
-	use MigrationConfig;
+	/**
+	 * {@inheritDoc}
+	 */
+	static protected $defaultName = 'migrations:status';
 
-	protected static $defaultName = 'migrations:status';
+	/**
+	 * {@inheritDoc}
+	 */
+	static protected $proxy = Command\StatusCommand::class;
 }

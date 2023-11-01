@@ -5,11 +5,17 @@ namespace Hiraeth\Dbal;
 use Doctrine\Migrations\Tools\Console\Command;
 
 /**
- *
+ * Proxy command cause doctrine migrations is a huge pile of shit
  */
-class RollupCommand extends Command\RollupCommand
+class RollupCommand extends AbstractCommand
 {
-	use MigrationConfig;
+	/**
+	 * {@inheritDoc}
+	 */
+	static protected $defaultName = 'migrations:rollup';
 
-	protected static $defaultName = 'migrations:rollup';
+	/**
+	 * {@inheritDoc}
+	 */
+	static protected $proxy = Command\RollupCommand::class;
 }
