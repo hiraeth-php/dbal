@@ -56,6 +56,5 @@
 		"migrations:version":     "Hiraeth\Dbal\VersionCommand",
 		"migrations:migrate":     "Hiraeth\Dbal\MigrateCommand",
 		"migrations:execute":     "Hiraeth\Dbal\ExecuteCommand",
-		"migrations:generate":    "Hiraeth\Dbal\GenerateCommand",
-		"migrations:dump-schema": "Hiraeth\Dbal\DumpSchemaCommand",
+		"migrations:generate":    "Hiraeth\Dbal\GenerateCommand"
 	}
