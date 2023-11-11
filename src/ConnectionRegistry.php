@@ -95,6 +95,9 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 				'host' => '127.0.0.1'
 			];
 
+			$options['password'] = $options['pass']   ?? NULL;
+			$options['dbname']   = $options['dbname'] ?? NULL;
+
 			$this->connections[$name] = DBAL\DriverManager::getConnection(
 				empty($options['driver']) ? ['url'=>'sqlite:///:memory:'] : $options,
 				$this->app->get(DBAL\Configuration::class)
