@@ -16,19 +16,19 @@
 	;
 	;
 
-	; password = env(DATABASES_DEFAULT_PASS)
+	password = env(DATABASES_DEFAULT_PASS)
 
 	;
 	;
 	;
 
-	; host = env(DATABASES_DEFAULT_HOST)
+	host = env(DATABASES_DEFAULT_HOST)
 
 	;
 	;
 	;
 
-	; port = env(DATABASES_DEFAULT_PORT)
+	port = env(DATABASES_DEFAULT_PORT)
 
 	;
 	;
