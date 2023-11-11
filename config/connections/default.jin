@@ -16,13 +16,13 @@
 	;
 	;
 
-	password = env(DATABASES_DEFAULT_PASS)
+	pass = env(DATABASES_DEFAULT_PASS)
 
 	;
 	;
 	;
 
-	host = env(DATABASES_DEFAULT_HOST)
+	host = env(DATABASES_DEFAULT_HOST, 127.0.0.1)
 
 	;
 	;
@@ -34,4 +34,4 @@
 	;
 	;
 
-	dbname = env(DATABASES_DEFAULT_NAME)
+	name = env(DATABASES_DEFAULT_NAME, database)
