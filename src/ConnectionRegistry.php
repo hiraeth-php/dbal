@@ -95,13 +95,12 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 				'host' => '127.0.0.1'
 			];
 
-			$options['password'] = $options['pass']   ?? NULL;
-			$options['dbname']   = $options['dbname'] ?? NULL;
-
+			$options['dbname']        = $options['dbname'] ?? NULL;
+			$options['password']      = $options['pass']   ?? NULL;
 			$this->connections[$name] = DBAL\DriverManager::getConnection(
 				empty($options['driver'])
 					? ['url' => sprintf(
-						'pdo-sqlite://%s',
+						'pdo-sqlite:///%s',
 						$this->app->getFile('storage/db.sqlite', TRUE)
 					)]
 					: $options,
