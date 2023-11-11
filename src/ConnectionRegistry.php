@@ -99,7 +99,12 @@ class ConnectionRegistry implements Persistence\ConnectionRegistry
 			$options['dbname']   = $options['dbname'] ?? NULL;
 
 			$this->connections[$name] = DBAL\DriverManager::getConnection(
-				empty($options['driver']) ? ['url'=>'sqlite:///:memory:'] : $options,
+				empty($options['driver'])
+					? ['url' => sprintf(
+						'pdo-sqlite://%s',
+						$this->app->getFile('storage/db.sqlite')
+					)]
+					: $options,
 				$this->app->get(DBAL\Configuration::class)
 			);
 		}
