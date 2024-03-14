@@ -26,8 +26,7 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^1.0",
-        "hiraeth/app": "^2.0",
-	"psy/psysh": "^0.11"
+        "psy/psysh": "^0.11"
     },
     "type": "opus-package",
     "extra": {
